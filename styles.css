@@ -18,6 +18,7 @@ body{
     padding: 8px;
     color: white;
     background-color: rgb(25, 25, 136);
+    cursor: pointer;
 }
 
 i{

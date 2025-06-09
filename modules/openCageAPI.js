@@ -1,9 +1,10 @@
+import { API_KEY_OpenCageAPI } from "./config.js";
 
 export async function getCoordinates(city,country) {
  
-  const query = city+", "+country;
-  const api_url = 'https://api.opencagedata.com/geocode/v1/json'
-  const api_key ="ea4ce79728ef4268af7e1f9b93a0cfe2"
+  const query = '${city}, ${country}';
+  const api_url = 'https://api.opencagedata.com/geocode/v1/json';
+  const api_key =API_KEY_OpenCageAPI;
 
   const request_url = api_url
     + '?'
@@ -16,14 +17,10 @@ export async function getCoordinates(city,country) {
     let response = await fetch(request_url);
     if(!response.ok) throw new Error("HTTP problem");
     const data = await response.json();
-    const locations = data.results.map(location =>(
-    {
-        lat:location.geometry.lat,
-        lng:location.geometry.lng
-    }
-    ))
-    console.log(locations);
-    return locations;  
+    if(!data.results || data.results.length===0){throw new Error("No coordinates found");}
+    const {lat,lng} = data.results[0].geometry;
+    console.log({lat,lng});
+    return {lat,lng};  
     }
     catch(error){
         console.log("Error fetching location statistics:",error);

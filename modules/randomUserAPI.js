@@ -6,8 +6,7 @@ export async function getUsersInfo() {
     const users = data.results.map(user =>(
     {
         picture:user.picture.thumbnail,
-        firstName:user.name.first,
-        lastName:user.name.last,
+        fullName:user.name.first+" "+user.name.last,
         city:user.location.city,
         country:user.location.country
     }

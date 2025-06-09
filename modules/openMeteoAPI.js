@@ -11,22 +11,20 @@ export async function getWeatherStats(latitude,longitude) {
     + '&current=temperature_2m,relative_humidity_2m,weather_code'
 
     try{
-    let response = await fetch(request_url);
+    const response = await fetch(request_url);
     if(!response.ok) throw new Error("HTTP problem");
     const data = await response.json();
     const weatherStats = data.current;
     console.log(weatherStats);
-    return
-    {
-        tempretature:weatherStats.tempretature_2m;
-        humidity:weatherStats.relative_humidity_2m;
-        weatherDecription:getWeatherDescription(weatherStats.weather_code);
-    }
+    return {
+        temperature:weatherStats.temperature_2m,
+        humidity:weatherStats.relative_humidity_2m,
+        weatherDescription:getWeatherDescription(weatherStats.weather_code)
+    };
     }
     catch(error){
         console.log("Error fetching weather statistics:",error);
     }
-
 }
 
 

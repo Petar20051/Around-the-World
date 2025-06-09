@@ -1,14 +1,41 @@
 
-export function displayCards(users,weatherStats){
-const cards=document.getElementsByClassName("card")
-for(let i=0;i<5;i++)
-{
-    const image=cards[i].querySelector("img");
-    const name= cards[i].querySelector("h3");
-    const location =cards[i].querySelector("h5");
-    const temperature=cards[i].querySelector(".temperature")
-    const humidity=cards[i].querySelector(".humidity")
-    const condition=cards[i].querySelector(".condition")
+export function displayCards(users){
+const container = document.querySelector(".cards-container");
+container.innerHTML="";
+users.forEach(user=>{
+    const card = document.createElement("div");
+    card.classList.add("card")
 
-}
+    const img=document.createElement("img");
+    img.src=user.picture;
+    
+    const name = document.createElement("h3");
+    name.classList.add("name");
+    name.textContent=user.fullName;
+
+    const location = document.createElement("h5");
+    location.classList.add("location");
+    location.textContent=user.city+", "+user.country;
+
+    const temp = document.createElement("p");
+    temp.classList.add("temperature");
+    temp.textContent="Temp: "+user.weather.temp+" C";
+
+    const humidity = document.createElement("p");
+    humidity.classList.add("humidity");
+    humidity.textContent="Humidity: " +user.weather.humidity+" %";
+
+    const condition = document.createElement("p");
+    condition.classList.add("condition");
+    condition.textContent="Condition: "+user.weather.weatherDescription;
+
+    card.appendChild(img);
+    card.appendChild(name);
+    card.appendChild(location);
+    card.appendChild(temp);
+    card.appendChild(humidity);
+    card.appendChild(condition);
+
+    container.appendChild(card);
+})
 }
