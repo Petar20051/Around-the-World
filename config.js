@@ -1,0 +1,1 @@
+window.env = {API_KEY_OpenCageAPI:"ea4ce79728ef4268af7e1f9b93a0cfe2"}
