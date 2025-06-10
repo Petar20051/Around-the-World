@@ -11,7 +11,7 @@ users.forEach((user,index)=>
     const humidity = card.querySelector(".humidity");
     humidity.textContent="Humidity: " +user.weather.humidity+" %";
 
-    const condition = card.querySelector("condition");
+    const condition = card.querySelector(".condition");
     condition.textContent="Condition: "+user.weather.weatherDescription;
 });
 }
