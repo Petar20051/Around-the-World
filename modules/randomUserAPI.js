@@ -2,8 +2,9 @@ import { api_randomeuser_url } from "./config.js";
 
 export async function getUsersInfo() {
     try{
-    const resultCount="result=5";
-    let response = await fetch(api_randomeuser_url+resultCount);
+    const resultCount="?results=5";
+    const request_url=api_randomeuser_url+resultCount;
+    let response = await fetch(request_url);
     if(!response.ok) throw new Error("RandomUser API HTTP error:" + response.status);
     const data = await response.json();
     const users = data.results.map(user =>(
@@ -14,7 +15,7 @@ export async function getUsersInfo() {
         country:user.location.country
     }
     ))
-    console.log(users);
+    /*console.log(users);*/
     return users;  
     }
     catch(error){

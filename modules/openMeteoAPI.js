@@ -1,12 +1,14 @@
-import { api_open_meteo_url } from "./config.js";
+import { api_openmeteo_url } from "./config.js";
 
 export async function getWeatherStats(latitude, longitude, retries = 3) {
-  const request_url = api_open_meteo_url
+  
+    const query='&current=temperature_2m,relative_humidity_2m,weather_code';
+    const request_url = api_openmeteo_url
     + '?'
     + 'latitude=' + latitude
     + '&'
     + 'longitude=' + longitude
-    + '&current=temperature_2m,relative_humidity_2m,weather_code';
+    + query;
 
   try {
     const response = await fetch(request_url);

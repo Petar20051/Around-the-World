@@ -1,4 +1,4 @@
-import { API_KEY_OpenCageAPI } from "./config.js";
+import { api_key_OpenCageAPI } from "./config.js";
 import { api_opencage_url } from "./config.js";
 
 export async function getCoordinates(city,country) {
@@ -6,7 +6,7 @@ export async function getCoordinates(city,country) {
   const query= city+", "+country;
   const request_url = api_opencage_url
     + '?'
-    + 'key=' + API_KEY_OpenCageAPI
+    + 'key=' + api_key_OpenCageAPI
     + '&q=' + encodeURIComponent(query)
     + '&pretty=1'
     + '&no_annotations=1';
