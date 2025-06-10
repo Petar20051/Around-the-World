@@ -10,7 +10,7 @@ async function runWorkflow() {
   try {
     localStorage.removeItem("cachedUsers");
     const users = await getUsersInfo();
-    const usersWithWeathers = await Promise.all(users.map(async user => {
+    const usersWithWeathers = await Promise.all(users.map(async (user) => {
       const coordinates = await getCoordinates(user.city, user.country);
       const weather = await getWeatherStats(coordinates.lat, coordinates.lng);
       /*console.log(weather);*/
@@ -29,11 +29,12 @@ async function runWorkflow() {
 }
 
 async function refreshWeatherOnly() {
+  showLoader();
   try {
     const cachedInfo = localStorage.getItem("cachedUsers");
     if (!cachedInfo) return;
     let currentUsers = JSON.parse(cachedInfo);
-    const usersWithUpdatedWeathers = await Promise.all(currentUsers.map(async user => {
+    const usersWithUpdatedWeathers = await Promise.all(currentUsers.map(async (user) => {
       if (!user.weather) throw new Error("Cached coordinates missing");
       const weather = await getWeatherStats(user.weather.latitude, user.weather.longitude,2);
       console.log(weather);
@@ -46,7 +47,11 @@ async function refreshWeatherOnly() {
     updateWeatherInfo(usersWithUpdatedWeathers);
   } catch (error) {
     console.error("Workflow error during weather refresh:", error.message);
+  }finally
+  {
+    hideLoader();
   }
+
 }
 
 const loader = document.getElementById("loader-container");
