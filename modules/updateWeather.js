@@ -1,5 +1,5 @@
 export function updateWeatherInfo(users){
-const cards = document.querySelectorAll(".cards");
+const cards = document.querySelectorAll(".card");
 users.forEach((user,index)=>
 {
     const card=cards[index];

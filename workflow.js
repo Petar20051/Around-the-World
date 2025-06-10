@@ -35,7 +35,7 @@ async function refreshWeatherOnly() {
     if (!cachedInfo) return;
     let currentUsers = JSON.parse(cachedInfo);
     const usersWithUpdatedWeathers = await Promise.all(currentUsers.map(async (user) => {
-      if (!user.weather) throw new Error("Cached coordinates missing");
+      if (!user.weather || user.weather.latitude == null || user.weather.longitude == null) throw new Error("Cached coordinates missing");
       const weather = await getWeatherStats(user.weather.latitude, user.weather.longitude,2);
       console.log(weather);
       return {
