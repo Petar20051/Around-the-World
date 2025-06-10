@@ -1,7 +1,10 @@
+import { api_randomeuser_url } from "./config.js";
+
 export async function getUsersInfo() {
     try{
-    let response = await fetch("https://randomuser.me/api/?results=5");
-    if(!response.ok) throw new Error("HTTP problem");
+    const resultCount="result=5";
+    let response = await fetch(api_randomeuser_url+resultCount);
+    if(!response.ok) throw new Error("RandomUser API HTTP error:" + response.status);
     const data = await response.json();
     const users = data.results.map(user =>(
     {
@@ -15,7 +18,7 @@ export async function getUsersInfo() {
     return users;  
     }
     catch(error){
-        console.log("Error fetching users:",error);
+        console.log("RandomUser API fetch error:", error.message);
     }
 }
 

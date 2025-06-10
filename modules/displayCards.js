@@ -13,13 +13,13 @@ users.forEach(user=>{
     name.classList.add("name");
     name.textContent=user.fullName;
 
-    const location = document.createElement("h5");
+    const location = document.createElement("h4");
     location.classList.add("location");
     location.textContent=user.city+", "+user.country;
 
     const temp = document.createElement("p");
     temp.classList.add("temperature");
-    temp.textContent="Temp: "+user.weather.temp+" C";
+    temp.textContent="Temp: "+user.weather.temperature+" °C";
 
     const humidity = document.createElement("p");
     humidity.classList.add("humidity");
