@@ -1,6 +1,6 @@
 import { api_openmeteo_url } from "./config.js";
 
-export async function getWeatherStats(latitude, longitude, retries = 3) {
+export async function getWeatherStats(latitude, longitude, retries = 2) {
   
     const query='&current=temperature_2m,relative_humidity_2m,weather_code';
     const request_url = api_openmeteo_url
@@ -24,8 +24,8 @@ export async function getWeatherStats(latitude, longitude, retries = 3) {
     };
   } catch (error) {
     if (retries > 0) {
-        console.log(`Open-Meteo API fetch failed for (${latitude}, ${longitude}). Retries left: ${retries}. Error: ${error.message}`)
-      await new Promise(res => setTimeout(res, 500));
+      console.log(`Open-Meteo API fetch failed for (${latitude}, ${longitude}). Retries left: ${retries}. Error: ${error.message}`)
+      await new Promise(res => setTimeout(res, 1000));
       return getWeatherStats(latitude, longitude, retries - 1);
     }
     console.log("Open-Meteo API fetch error:", error.message);
