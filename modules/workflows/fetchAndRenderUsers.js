@@ -5,10 +5,10 @@ import { getCoordinates } from '../api/opencage.js';
 import { getWeatherStats } from '../api/openmeteo.js';
 import { saveToLocalStorage } from '../helpers/localStorage.js';
 import { USERS_CACHED_KEY } from '../constants.js';
+import { handleError } from '../ui/error.js';
 
 export async function runWorkflow() {
     toggleLoader(true);
-    document.querySelector('.card-list').innerHTML = "";
     try {
         const users = await getUsersInfo();
 
