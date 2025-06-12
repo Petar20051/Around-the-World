@@ -1,5 +1,5 @@
-import { refreshWeatherOnly } from '../workflows/refreshWeatherOnly.js';
-import { runWorkflow } from '../workflows/runWorkflow.js';
+import { refreshWeatherOnly } from '../workflows/refreshWeather.js';
+import { runWorkflow } from '../workflows/fetchAndRenderUsers.js';
 
 export function setButtons() {
     const refreshBtn = document.getElementById('refresh-btn');

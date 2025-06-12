@@ -1,5 +1,5 @@
-import { API_RANDOMUSER_URL } from '../static.js';
-import { fetchJSON } from '../helpers/fetchHelper.js';
+import { API_RANDOMUSER_URL } from '../constants.js';
+import { fetchJSON } from '../helpers/fetch.js';
 
 export async function getUsersInfo(userCount = 5) {
     const request_url = `${API_RANDOMUSER_URL}${userCount}`;

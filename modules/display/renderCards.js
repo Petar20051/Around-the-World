@@ -1,4 +1,4 @@
-import { createElement } from '../helpers/domHelpers.js';
+import { createElement } from '../helpers/dom.js';
 
 export function createCards(users) {
     const container = document.querySelector('.card-list');

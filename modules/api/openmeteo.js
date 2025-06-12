@@ -1,7 +1,7 @@
-import { fetchJSON } from "../helpers/fetchHelper.js";
-import { withRetry } from "../helpers/retryHelper.js";
-import { getWeatherDescription } from "../helpers/weatherCode.js";
-import { API_OPENMETEO_URL } from '../static.js';
+import { fetchJSON } from "../helpers/fetch.js";
+import { withRetry } from "../helpers/retry.js";
+import { getWeatherDescription } from "../helpers/weatherCodes.js";
+import { API_OPENMETEO_URL } from '../constants.js';
 
 export async function getWeatherStats(latitude, longitude, retries = 2) {
   const query = '&current=temperature_2m,relative_humidity_2m,weather_code';

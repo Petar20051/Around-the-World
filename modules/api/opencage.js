@@ -1,5 +1,5 @@
-import { API_KEY_OPENCAGE, API_OPENCAGE_URL } from '../static.js';
-import { fetchJSON } from '../helpers/fetchHelper.js';
+import { API_KEY_OPENCAGE, API_OPENCAGE_URL } from '../constants.js';
+import { fetchJSON } from '../helpers/fetch.js';
 
 export async function getCoordinates(city, country) {
   const query = `${city}, ${country}`;
@@ -7,7 +7,7 @@ export async function getCoordinates(city, country) {
 
   const data = await fetchJSON(request_url, 'OpenCage API fetch error:');
   if (!data.results || data.results.length === 0) {
-    throw new Error("No coordinates found for " + query);
+    throw new Error(`No coordinates found for ${query}`);
   }
   const { lat, lng } = data.results[0].geometry;
   return { lat, lng };

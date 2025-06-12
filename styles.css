@@ -167,3 +167,14 @@ label {
 	padding-top: 10px;
 	font-size: 23px;
 }
+
+.error {
+	background-color: #ff4d4f;
+	color: #faf8f8;
+	padding: 10px;
+	text-align: center;
+	font-weight: bold;
+	margin: 0 auto;
+	max-width: 200px;
+	border-radius: 5px;
+}
