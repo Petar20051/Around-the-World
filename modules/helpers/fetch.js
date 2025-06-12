@@ -1,5 +1,3 @@
-import { handleError } from '../ui/error.js';
-
 export async function fetchJSON(url, errorMsg = 'API fetch error') {
     try {
         const response = await fetch(url);
@@ -10,6 +8,6 @@ export async function fetchJSON(url, errorMsg = 'API fetch error') {
     }
     catch (error) {
         console.error(errorMsg, error.message);
-        handleError('Failed to load the data.');
+        throw error;
     }
 }

@@ -12,23 +12,27 @@ export async function refreshWeatherOnly() {
 
         const currentUsers = loadFromLocalStorage(USERS_CACHED_KEY);
         if (!currentUsers) {
+            toggleLoader(false);
             return;
         }
 
         const usersWithUpdatedWeathers = await Promise.all(currentUsers.map(async (user) => {
             if (!user.weather || user.weather.latitude == null || user.weather.longitude == null) {
-                throw new Error('Cached coordinates missing');
+                return { ...user, weather: null };
             }
-
-            const weather = await getWeatherStats(user.weather.latitude, user.weather.longitude, 2);
-            return { ...user, weather };
+            try {
+                const weather = await getWeatherStats(user.weather.latitude, user.weather.longitude, 2);
+                return { ...user, weather };
+            } catch (weatherError) {
+                return { ...user, weather: null };
+            }
         }));
 
         saveToLocalStorage(USERS_CACHED_KEY, usersWithUpdatedWeathers);
         updateWeatherInfo(usersWithUpdatedWeathers);
     } catch (error) {
         console.error('Workflow error during weather refresh:', error.message);
-        handleError('Workflow error during weather refresh')
+        handleError('Workflow error during weather refresh');
     } finally {
         toggleLoader(false);
     }

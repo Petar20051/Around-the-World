@@ -13,11 +13,9 @@ export function createCards(users) {
 
         const location = createElement('h4', 'location', `${user.city}, ${user.country}`);
 
-        const temp = createElement('p', 'temperature', `Temp: ${user.weather.temperature} °C`);
-
-        const humidity = createElement('p', 'humidity', `Humidity: ${user.weather.humidity} %`);
-
-        const condition = createElement('p', 'condition', `Condition: ${user.weather.weatherDescription}`);
+        const temp = createElement('p', 'temperature', user.weather ? `Temp: ${user.weather.temperature} °C` : 'Weather unavailable');
+        const humidity = createElement('p', 'humidity', user.weather ? `Humidity: ${user.weather.humidity} %` : '');
+        const condition = createElement('p', 'condition', user.weather ? `Condition: ${user.weather.weatherDescription}` : '');
 
         card.appendChild(img);
         card.appendChild(name);

@@ -1,4 +1,3 @@
-
 const loader = document.getElementById('loader-container');
 const refreshBtn = document.getElementById('refresh-btn');
 const newUserBtn = document.getElementById('new-users-btn');

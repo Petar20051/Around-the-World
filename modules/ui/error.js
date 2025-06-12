@@ -11,7 +11,5 @@ export function handleError(message = '') {
     } else {
         errorBox.textContent = '';
         errorBox.classList.add('hidden');
-        toggleLoader(true);
     }
-
 }
