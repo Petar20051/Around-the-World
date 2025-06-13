@@ -1,22 +1,18 @@
 import { updateFieldIfChanged } from '../helpers/dom.js';
 
-export function updateWeatherInfo(users) {
+export function updateWeatherFieldsOnCards(users) {
   const cards = document.querySelectorAll('.card');
 
   users.forEach((user, index) => {
     const card = cards[index];
-    if (!card) {
-      return;
-    }
+    if (!card) return;
 
-    if (user.weather) {
-      updateFieldIfChanged(card, '.temperature', `Temp: ${user.weather.temperature} °C`);
-      updateFieldIfChanged(card, '.humidity', `Humidity: ${user.weather.humidity} %`);
-      updateFieldIfChanged(card, '.condition', `Condition: ${user.weather.weatherDescription}`);
-    } else {
-      updateFieldIfChanged(card, '.temperature', 'Weather unavailable');
-      updateFieldIfChanged(card, '.humidity', '');
-      updateFieldIfChanged(card, '.condition', '');
-    }
+    const tempText = user.weather ? `Temp: ${user.weather.temperature} °C` : 'Weather unavailable';
+    const humidityText = user.weather ? `Humidity: ${user.weather.humidity} %` : '';
+    const conditionText = user.weather ? `Condition: ${user.weather.weatherDescription}` : '';
+
+    updateFieldIfChanged(card, '.temperature', tempText);
+    updateFieldIfChanged(card, '.humidity', humidityText);
+    updateFieldIfChanged(card, '.condition', conditionText);
   });
 }

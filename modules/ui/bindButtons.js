@@ -1,10 +1,11 @@
-import { refreshWeatherOnly } from '../workflows/refreshWeather.js';
-import { runWorkflow } from '../workflows/fetchAndRenderUsers.js';
+import { refreshAllUsersWeather } from '../workflows/refreshWeather.js';
+import { fetchAndRenderUsers } from '../workflows/fetchAndRenderUsers.js';
 
-export function setButtons() {
+export function initButtonHandlers() {
     const refreshBtn = document.getElementById('refresh-btn');
     const newUserBtn = document.getElementById('new-users-btn');
 
-    newUserBtn.addEventListener('click', runWorkflow);
-    refreshBtn.addEventListener('click', refreshWeatherOnly);
+    newUserBtn.addEventListener('click', fetchAndRenderUsers);
+    refreshBtn.addEventListener('click', refreshAllUsersWeather);
 }
+

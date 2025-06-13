@@ -3,7 +3,7 @@ export function createElement(type, className, text) {
     if (className) {
         el.classList.add(className);
     }
-    if (text !== undefined && text !== null) {
+    if (text !== null) {
         el.textContent = text;
     }
     return el;

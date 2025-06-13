@@ -1,18 +1,20 @@
-import { createCards } from './modules/display/renderCards.js';
+import { renderUserCards } from './modules/display/renderCards.js';
 import { loadFromLocalStorage } from './modules/helpers/localStorage.js';
 import { USERS_CACHED_KEY } from './modules/constants.js';
-import { setButtons } from './modules/ui/bindButtons.js';
-import { runWorkflow } from './modules/workflows/fetchAndRenderUsers.js';
-import { refreshWeatherOnly } from './modules/workflows/refreshWeather.js';
+import { initButtonHandlers } from './modules/ui/bindButtons.js';
+import { fetchAndRenderUsers } from './modules/workflows/fetchAndRenderUsers.js';
+import { refreshAllUsersWeather } from './modules/workflows/refreshWeather.js';
 
+(function initApp() {
 
-setButtons();
+  const cachedUsersInfo = loadFromLocalStorage(USERS_CACHED_KEY);
+  if (cachedUsersInfo) {
+    renderUserCards(cachedUsersInfo);
+  } else {
+    fetchAndRenderUsers();
+  }
 
-const cachedUsersInfo = loadFromLocalStorage(USERS_CACHED_KEY);
-if (cachedUsersInfo) {
-  createCards(cachedUsersInfo);
-} else {
-  runWorkflow();
-}
+  initButtonHandlers();
 
-setInterval(refreshWeatherOnly, 30 * 60 * 1000);
+  setInterval(refreshAllUsersWeather, 30 * 60 * 1000);
+})();

@@ -3,11 +3,18 @@ const refreshBtn = document.getElementById('refresh-btn');
 const newUserBtn = document.getElementById('new-users-btn');
 const cardsContainer = document.querySelector('.card-list');
 
-export function toggleLoader(isLoading) {
+function setVisualLoading(isLoading) {
     loader.classList.toggle('hidden', !isLoading);
-    refreshBtn.disabled = isLoading;
-    newUserBtn.disabled = isLoading;
     cardsContainer.classList.toggle('hidden', isLoading);
 }
 
+function setButtonsEnabled(enabled) {
+    refreshBtn.disabled = !enabled;
+    newUserBtn.disabled = !enabled;
+}
+
+export function setLoadingState(isLoading) {
+    setVisualLoading(isLoading);
+    setButtonsEnabled(!isLoading);
+}
 

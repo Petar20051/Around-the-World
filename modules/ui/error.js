@@ -1,13 +1,12 @@
-import { toggleLoader } from './loader.js';
+import { setLoadingState } from './loader.js';
 
-const errorBox = document.getElementById('error-message')
+const errorBox = document.getElementById('error-message');
 
-
-export function handleError(message = '') {
+export function setErrorState(message = '') {
     if (message) {
         errorBox.textContent = message;
         errorBox.classList.remove('hidden');
-        toggleLoader(false);
+        setLoadingState(false);
     } else {
         errorBox.textContent = '';
         errorBox.classList.add('hidden');
