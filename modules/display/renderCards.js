@@ -1,5 +1,6 @@
 import { createElement } from '../helpers/dom.js';
 import { handleSameNationalityClick } from '../ui/handleSameNationalityClick.js';
+import { setLoadingState } from '../ui/loader.js';
 
 export function renderUserCards(users) {
     const container = document.querySelector('.card-list');
@@ -19,8 +20,10 @@ export function renderUserCards(users) {
         const humidity = createElement('p', 'humidity', user.weather ? `Humidity: ${user.weather.humidity} %` : '');
         const condition = createElement('p', 'condition', user.weather ? `Condition: ${user.weather.weatherDescription}` : '');
         const btnSameNationality = createElement('a', 'btn', 'Same nationality');
-        btnSameNationality.addEventListener('click', () => {
-            handleSameNationalityClick(user, users);
+        btnSameNationality.addEventListener('click', async () => {
+            setLoadingState(true);
+            await handleSameNationalityClick(user, users);
+            setLoadingState(false);
         });
 
         card.append(img, name, location, temp, humidity, condition, btnSameNationality);

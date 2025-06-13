@@ -14,8 +14,7 @@ export async function refreshAllUsersWeather() {
         return;
     }
 
-    setLoadingState(true);
-    let usersWithUpdatedWeathers
+    let usersWithUpdatedWeathers;
     try {
         usersWithUpdatedWeathers = await Promise.all(currentUsers.map(refreshUserWeather));
         updateWeatherFieldsOnCards(usersWithUpdatedWeathers);
@@ -23,7 +22,6 @@ export async function refreshAllUsersWeather() {
         console.error('Error refreshing weather data:', err);
     } finally {
         saveToLocalStorage(USERS_CACHED_KEY, usersWithUpdatedWeathers);
-        setLoadingState(false);
     }
 
 }
