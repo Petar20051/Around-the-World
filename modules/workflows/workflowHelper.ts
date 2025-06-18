@@ -1,46 +1,42 @@
 import {fetchCoordinatesByLocation} from '../api/opencage.js';
 import {fetchCurrentWeatherStats} from '../api/openmeteo.js';
-import {Coordinates} from '../types/coordinates.js';
 import {User} from '../types/user.js';
-import {Weather} from '../types/weather.js';
 
 export async function enrichUserWithWeather(user: User): Promise<User> {
-	let coordinates: Coordinates | undefined;
-	let weather: Weather | undefined;
+	const enrichedUser: User = {...user};
 
 	try {
-		coordinates = await fetchCoordinatesByLocation(user.city, user.country);
-	} catch (error) {
-		console.warn(`Failed to fetch coordinates for ${user.fullName}:`);
-	}
+		const coordinates = await fetchCoordinatesByLocation(user.city, user.country);
+		enrichedUser.coordinates = coordinates;
 
-	if (coordinates) {
 		try {
-			weather = await fetchCurrentWeatherStats(coordinates.lat, coordinates.lng);
-		} catch (error) {
-			console.warn(`Failed to fetch weather for ${user.fullName}:`);
+			const weather = await fetchCurrentWeatherStats(coordinates.lat, coordinates.lng);
+			enrichedUser.weather = weather;
+		} catch (weatherError) {
+			console.warn(`Failed to fetch weather for ${user.fullName}:`, weatherError);
 		}
+	} catch (coordError) {
+		console.warn(`Failed to fetch coordinates for ${user.fullName}:`, coordError);
 	}
 
-	const enrichedUser: User = {...user};
-	if (coordinates) enrichedUser.coordinates = coordinates;
-	if (weather) enrichedUser.weather = weather;
 	return enrichedUser;
 }
 
-export async function refreshUserWeather(user: User): Promise<User> {
-	if (!user.coordinates) {
-		console.warn(`${user.fullName} has no coordinates.`);
-		return {...user};
+export async function updateUserWeather(originalUser: User): Promise<User> {
+	if (!originalUser.coordinates) {
+		console.warn(`${originalUser.fullName} has no coordinates.`);
+		return originalUser;
 	}
 
-	let weather: Weather | undefined;
+	const userWithUpdatedWeather: User = {...originalUser};
+
 	try {
-		weather = await fetchCurrentWeatherStats(user.coordinates.lat, user.coordinates.lng);
+		const currentWeather = await fetchCurrentWeatherStats(originalUser.coordinates.lat, originalUser.coordinates.lng);
+		userWithUpdatedWeather.weather = currentWeather;
 	} catch (error) {
-		console.warn(`Failed to refresh weather for ${user.fullName}:`);
+		console.warn(`Failed to refresh weather for ${originalUser.fullName}:`, error);
+		userWithUpdatedWeather.weather = undefined;
 	}
 
-	const updatedUser: User = {...user, weather};
-	return updatedUser;
+	return userWithUpdatedWeather;
 }

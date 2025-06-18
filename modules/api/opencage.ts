@@ -13,7 +13,7 @@ export async function fetchCoordinatesByLocation(city: string, country: string):
 	});
 
 	const data = await fetchJSON<OpenCageResponse>(requestUrl, 'OpenCage API fetch error:');
-	const geometry = data.results[0]?.geometry;
+	const geometry = data.results[0].geometry;
 
 	if (!geometry) {
 		throw new Error(`No coordinates found for ${query}`);

@@ -4,7 +4,9 @@ export function setErrorState(message = '') {
     if (!errorBox)
         return;
     errorBox.textContent = message;
-    errorBox.classList.toggle('hidden', !message);
-    if (message)
+    const shouldShowError = !!message;
+    errorBox.classList.toggle('hidden', !shouldShowError);
+    if (shouldShowError) {
         setLoadingState(false);
+    }
 }

@@ -5,8 +5,8 @@ import {clearUserCards} from '../display/clearUserCards.js';
 import {setErrorState} from './error.js';
 
 export function initButtonHandlers(): void {
-	const refreshBtn: HTMLButtonElement | null = document.querySelector('#refresh-btn');
-	const newUserBtn: HTMLButtonElement | null = document.querySelector('#new-users-btn');
+	const refreshBtn = document.querySelector('#refresh-btn');
+	const newUserBtn = document.querySelector('#new-users-btn');
 
 	if (newUserBtn) {
 		newUserBtn.addEventListener('click', async () => {

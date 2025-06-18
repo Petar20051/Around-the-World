@@ -2,7 +2,7 @@ import {updateWeatherFieldsOnCards} from '../display/updateCardFields.js';
 import {saveToLocalStorage, loadFromLocalStorage} from '../helpers/localStorage.js';
 import {USERS_CACHED_KEY} from '../constants.js';
 import {setErrorState} from '../ui/error.js';
-import {refreshUserWeather} from './workflowHelper.js';
+import {updateUserWeather} from './workflowHelper.js';
 import {clearUserCards} from '../display/clearUserCards.js';
 import {User} from '../types/user.js';
 
@@ -10,13 +10,13 @@ export async function refreshAllUsersWeather(): Promise<void> {
 	const currentUsers = loadFromLocalStorage<User[]>(USERS_CACHED_KEY);
 	if (!currentUsers) {
 		clearUserCards();
-		setErrorState('There are no users to refresh weather');
+		setErrorState('No users available for weather update');
 		return;
 	}
 
 	let usersWithUpdatedWeather: User[] = [];
 	try {
-		usersWithUpdatedWeather = await Promise.all(currentUsers.map(refreshUserWeather));
+		usersWithUpdatedWeather = await Promise.all(currentUsers.map(updateUserWeather));
 		updateWeatherFieldsOnCards(usersWithUpdatedWeather);
 	} catch (err) {
 		console.error('Error refreshing weather data:', err);

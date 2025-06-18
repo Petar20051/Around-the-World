@@ -18,5 +18,5 @@ export async function fetchCurrentWeatherStats(latitude, longitude, retries = 2)
             condition: getWeatherDescription(weatherStats.weather_code),
         };
     };
-    return withRetry(fetchWeather, retries, 1000);
+    return withRetry(fetchWeather);
 }

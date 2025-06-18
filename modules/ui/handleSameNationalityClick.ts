@@ -23,8 +23,8 @@ export async function handleSameNationalityClick(user: User, users: User[]) {
 	});
 	const enrichedNewUsers = await Promise.all(newUsers.map(enrichUserWithWeather));
 
-	indexesToReplace.forEach((index, i) => {
-		users[index] = enrichedNewUsers[i];
+	indexesToReplace.forEach((value, index) => {
+		users[value] = enrichedNewUsers[index];
 	});
 
 	renderUserCards(users);

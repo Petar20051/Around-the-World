@@ -22,5 +22,5 @@ export async function fetchCurrentWeatherStats(latitude: number, longitude: numb
 		};
 	};
 
-	return withRetry(fetchWeather, retries, 1000);
+	return withRetry(fetchWeather);
 }

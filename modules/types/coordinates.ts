@@ -1,6 +1,9 @@
 export type OpenCageResponse = {
 	results: {
-		geometry: {lat: number; lng: number};
+		geometry: {
+			lat: number;
+			lng: number;
+		};
 	}[];
 };
 

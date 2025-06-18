@@ -6,7 +6,7 @@ import {fetchAndRenderUsers} from './modules/workflows/fetchAndRenderUsers.js';
 import {refreshAllUsersWeather} from './modules/workflows/refreshWeather.js';
 import {User} from './modules/types/user.js';
 
-(function initApp() {
+(function initApp(): void {
 	const cachedUsersInfo = loadFromLocalStorage<User[]>(USERS_CACHED_KEY);
 	if (cachedUsersInfo) {
 		renderUserCards(cachedUsersInfo);
