@@ -1,4 +1,4 @@
-export function createElement({ type, className = '', text = '' }) {
+export function createElement({ type, className, text }) {
     const el = document.createElement(type);
     if (className) {
         el.classList.add(className);
