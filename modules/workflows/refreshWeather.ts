@@ -16,11 +16,11 @@ export async function refreshAllUsersWeather(): Promise<void> {
 
 	let updatedUsers: User[] = [];
 	try {
-		updatedUsers = await Promise.all(currentUsers.map((u) => enrichUserWeather(u, false)));
+		updatedUsers = await Promise.all(currentUsers.map((u) => enrichUserWeather({user: u, alwaysFetchCoordinates: false})));
 		updateWeatherFieldsOnCards(updatedUsers);
 	} catch (err) {
 		console.error('Error refreshing weather data:', err);
 	} finally {
-		saveToLocalStorage(USERS_CACHED_KEY, updatedUsers);
+		saveToLocalStorage({key: USERS_CACHED_KEY, value: updatedUsers});
 	}
 }

@@ -1,4 +1,4 @@
-export async function fetchJSON<T>(url: string, errorMsg: string = 'API fetch error'): Promise<T> {
+export async function fetchJSON<T>({url, errorMsg = 'API fetch error'}: {url: string; errorMsg?: string}): Promise<T> {
 	try {
 		const response = await fetch(url);
 		if (!response.ok) {

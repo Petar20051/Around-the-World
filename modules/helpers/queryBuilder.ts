@@ -1,4 +1,10 @@
-export function buildUrl(baseUrl: string, queryParams: Record<string, string | number | undefined> = {}): string {
+export function buildUrl({
+	baseUrl,
+	queryParams = {},
+}: {
+	baseUrl: string;
+	queryParams?: Record<string, string | number | undefined>;
+}): string {
 	const url = new URL(baseUrl);
 
 	for (const key in queryParams) {

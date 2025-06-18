@@ -1,4 +1,4 @@
-export async function fetchJSON(url, errorMsg = 'API fetch error') {
+export async function fetchJSON({ url, errorMsg = 'API fetch error' }) {
     try {
         const response = await fetch(url);
         if (!response.ok) {

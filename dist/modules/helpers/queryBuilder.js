@@ -1,4 +1,4 @@
-export function buildUrl(baseUrl, queryParams = {}) {
+export function buildUrl({ baseUrl, queryParams = {}, }) {
     const url = new URL(baseUrl);
     for (const key in queryParams) {
         const value = queryParams[key];

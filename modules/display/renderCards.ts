@@ -11,21 +11,41 @@ export function renderUserCards(users: User[]): void {
 	const fragment = document.createDocumentFragment();
 
 	users.forEach((user) => {
-		const card = createElement('div', 'card');
+		const card = createElement({type: 'div', className: 'card'});
 
-		const img = createElement('img') as HTMLImageElement;
+		const img = createElement({type: 'img'}) as HTMLImageElement;
 		img.src = user.picture;
 
-		const name = createElement('h3', 'name', user.fullName);
-		const location = createElement('h4', 'location', `${user.city}, ${user.country}`);
-		const temp = createElement('p', 'temperature', user.weather ? `Temp: ${user.weather.temperature} °C` : 'Weather unavailable');
-		const humidity = createElement('p', 'humidity', user.weather ? `Humidity: ${user.weather.humidity} %` : '');
-		const condition = createElement('p', 'condition', user.weather ? `Condition: ${user.weather.condition}` : '');
+		const name = createElement({type: 'h3', className: 'name', text: user.fullName});
+		const location = createElement({type: 'h4', className: 'location', text: `${user.city}, ${user.country}`});
 
-		const btnSameNationality = createElement('a', 'btn', 'Same nationality');
+		const temp = createElement({
+			type: 'p',
+			className: 'temperature',
+			text: user.weather ? `Temp: ${user.weather.temperature} °C` : 'Weather unavailable',
+		});
+
+		const humidity = createElement({
+			type: 'p',
+			className: 'humidity',
+			text: user.weather ? `Humidity: ${user.weather.humidity} %` : '',
+		});
+
+		const condition = createElement({
+			type: 'p',
+			className: 'condition',
+			text: user.weather ? `Condition: ${user.weather.condition}` : '',
+		});
+
+		const btnSameNationality = createElement({
+			type: 'a',
+			className: 'btn',
+			text: 'Same nationality',
+		});
+
 		btnSameNationality.addEventListener('click', async () => {
 			setLoadingState(true);
-			await handleSameNationalityClick(user, users);
+			await handleSameNationalityClick({user: user, users: users});
 			setLoadingState(false);
 		});
 

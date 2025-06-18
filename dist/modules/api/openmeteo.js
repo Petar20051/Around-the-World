@@ -3,14 +3,20 @@ import { withRetry } from '../helpers/retry.js';
 import { getWeatherDescription } from '../helpers/weatherCodes.js';
 import { API_OPENMETEO_URL, OPENMETEO_QUERY } from '../constants.js';
 import { buildUrl } from '../helpers/queryBuilder.js';
-export async function fetchCurrentWeatherStats(latitude, longitude, retries = 2) {
-    const requestUrl = buildUrl(API_OPENMETEO_URL, {
-        latitude,
-        longitude,
-        ...OPENMETEO_QUERY,
+export async function fetchCurrentWeatherStats({ latitude, longitude, retries = 2, }) {
+    const requestUrl = buildUrl({
+        baseUrl: API_OPENMETEO_URL,
+        queryParams: {
+            latitude,
+            longitude,
+            ...OPENMETEO_QUERY,
+        },
     });
     const fetchWeather = async () => {
-        const data = await fetchJSON(requestUrl, 'Open-Meteo API');
+        const data = await fetchJSON({
+            url: requestUrl,
+            errorMsg: 'Open-Meteo API',
+        });
         const weatherStats = data.current;
         return {
             temperature: weatherStats.temperature_2m,
@@ -18,5 +24,5 @@ export async function fetchCurrentWeatherStats(latitude, longitude, retries = 2)
             condition: getWeatherDescription(weatherStats.weather_code),
         };
     };
-    return withRetry(fetchWeather);
+    return withRetry({ fn: fetchWeather, retries: retries - 1 });
 }

@@ -5,7 +5,7 @@ import {USERS_CACHED_KEY} from '../constants.js';
 import {saveToLocalStorage} from '../helpers/localStorage.js';
 import {User} from '../types/user.js';
 
-export async function handleSameNationalityClick(user: User, users: User[]) {
+export async function handleSameNationalityClick({user, users}: {user: User; users: User[]}): Promise<void> {
 	const targetNationality = user.nationality;
 
 	const indexesToReplace: number[] = [];
@@ -21,12 +21,13 @@ export async function handleSameNationalityClick(user: User, users: User[]) {
 		userCount: indexesToReplace.length,
 		nationality: targetNationality,
 	});
-	const enrichedNewUsers = await Promise.all(newUsers.map((u) => enrichUserWeather(u, true)));
+
+	const enrichedNewUsers = await Promise.all(newUsers.map((u) => enrichUserWeather({user: u, alwaysFetchCoordinates: true})));
 
 	indexesToReplace.forEach((value, index) => {
 		users[value] = enrichedNewUsers[index];
 	});
 
 	renderUserCards(users);
-	saveToLocalStorage(USERS_CACHED_KEY, users);
+	saveToLocalStorage({key: USERS_CACHED_KEY, value: users});
 }

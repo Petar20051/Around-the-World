@@ -1,4 +1,4 @@
-export function saveToLocalStorage(key: string, value: unknown): void {
+export function saveToLocalStorage({key, value}: {key: string; value: unknown}): void {
 	localStorage.setItem(key, JSON.stringify(value));
 }
 

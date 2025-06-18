@@ -8,8 +8,8 @@ export function updateWeatherFieldsOnCards(users) {
         const tempText = user.weather ? `Temp: ${user.weather.temperature} °C` : 'Weather unavailable';
         const humidityText = user.weather ? `Humidity: ${user.weather.humidity} %` : '';
         const conditionText = user.weather ? `Condition: ${user.weather.condition}` : '';
-        updateFieldIfChanged(card, '.temperature', tempText);
-        updateFieldIfChanged(card, '.humidity', humidityText);
-        updateFieldIfChanged(card, '.condition', conditionText);
+        updateFieldIfChanged({ card: card, selector: '.temperature', newValue: tempText });
+        updateFieldIfChanged({ card: card, selector: '.humidity', newValue: humidityText });
+        updateFieldIfChanged({ card: card, selector: '.condition', newValue: conditionText });
     });
 }
