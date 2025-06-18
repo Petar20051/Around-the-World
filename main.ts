@@ -4,7 +4,7 @@ import {USERS_CACHED_KEY} from './modules/constants.js';
 import {initButtonHandlers} from './modules/ui/bindButtons.js';
 import {fetchAndRenderUsers} from './modules/workflows/fetchAndRenderUsers.js';
 import {refreshAllUsersWeather} from './modules/workflows/refreshWeather.js';
-import {User} from './modules/types.js';
+import {User} from './modules/types/user.js';
 
 (function initApp() {
 	const cachedUsersInfo = loadFromLocalStorage<User[]>(USERS_CACHED_KEY);

@@ -1,7 +1,7 @@
 import {createElement} from '../helpers/dom.js';
+import {User} from '../types/user.js';
 import {handleSameNationalityClick} from '../ui/handleSameNationalityClick.js';
 import {setLoadingState} from '../ui/loader.js';
-import {User} from '../types.js';
 
 export function renderUserCards(users: User[]): void {
 	const container = document.querySelector('.card-list');

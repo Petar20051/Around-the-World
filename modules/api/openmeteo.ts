@@ -3,15 +3,7 @@ import {withRetry} from '../helpers/retry.js';
 import {getWeatherDescription} from '../helpers/weatherCodes.js';
 import {API_OPENMETEO_URL, OPENMETEO_QUERY} from '../constants.js';
 import {buildUrl} from '../helpers/queryBuilder.js';
-import {Weather} from '../types.js';
-
-type OpenMeteoResponse = {
-	current: {
-		temperature_2m: number;
-		relative_humidity_2m: number;
-		weather_code: number;
-	};
-};
+import {OpenMeteoResponse, Weather} from '../types/weather.js';
 
 export async function fetchCurrentWeatherStats(latitude: number, longitude: number, retries: number = 2): Promise<Weather> {
 	const requestUrl = buildUrl(API_OPENMETEO_URL, {

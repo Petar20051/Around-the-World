@@ -4,7 +4,7 @@ import {USERS_CACHED_KEY} from '../constants.js';
 import {setErrorState} from '../ui/error.js';
 import {refreshUserWeather} from './workflowHelper.js';
 import {clearUserCards} from '../display/clearUserCards.js';
-import {User} from '../types.js';
+import {User} from '../types/user.js';
 
 export async function refreshAllUsersWeather(): Promise<void> {
 	const currentUsers = loadFromLocalStorage<User[]>(USERS_CACHED_KEY);
@@ -14,13 +14,13 @@ export async function refreshAllUsersWeather(): Promise<void> {
 		return;
 	}
 
-	let usersWithUpdatedWeathers: User[] = [];
+	let usersWithUpdatedWeather: User[] = [];
 	try {
-		usersWithUpdatedWeathers = await Promise.all(currentUsers.map(refreshUserWeather));
-		updateWeatherFieldsOnCards(usersWithUpdatedWeathers);
+		usersWithUpdatedWeather = await Promise.all(currentUsers.map(refreshUserWeather));
+		updateWeatherFieldsOnCards(usersWithUpdatedWeather);
 	} catch (err) {
 		console.error('Error refreshing weather data:', err);
 	} finally {
-		saveToLocalStorage(USERS_CACHED_KEY, usersWithUpdatedWeathers);
+		saveToLocalStorage(USERS_CACHED_KEY, usersWithUpdatedWeather);
 	}
 }

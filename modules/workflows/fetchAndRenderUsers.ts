@@ -4,7 +4,7 @@ import {saveToLocalStorage} from '../helpers/localStorage.js';
 import {USERS_CACHED_KEY} from '../constants.js';
 import {setErrorState} from '../ui/error.js';
 import {enrichUserWithWeather} from './workflowHelper.js';
-import {User} from '../types.js';
+import {User} from '../types/user.js';
 
 export async function fetchAndRenderUsers(): Promise<void> {
 	try {

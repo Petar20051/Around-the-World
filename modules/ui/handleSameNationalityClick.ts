@@ -3,7 +3,7 @@ import {enrichUserWithWeather} from '../workflows/workflowHelper.js';
 import {renderUserCards} from '../display/renderCards.js';
 import {USERS_CACHED_KEY} from '../constants.js';
 import {saveToLocalStorage} from '../helpers/localStorage.js';
-import {User} from '../types.js';
+import {User} from '../types/user.js';
 
 export async function handleSameNationalityClick(user: User, users: User[]) {
 	const targetNationality = user.nationality;

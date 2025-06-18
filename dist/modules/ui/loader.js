@@ -1,6 +1,6 @@
-const loader = document.getElementById('loader-container');
-const refreshBtn = document.querySelector('refresh-btn');
-const newUserBtn = document.querySelector('new-users-btn');
+const loader = document.querySelector('#loader-container');
+const refreshBtn = document.querySelector('#refresh-btn');
+const newUserBtn = document.querySelector('#new-users-btn');
 const cardsContainer = document.querySelector('.card-list');
 export function setLoadingState(isLoading) {
     setVisualLoading(isLoading);

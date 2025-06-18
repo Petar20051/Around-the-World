@@ -1,16 +1,7 @@
 import {API_RANDOMUSER_URL} from '../constants.js';
 import {fetchJSON} from '../helpers/fetch.js';
 import {buildUrl} from '../helpers/queryBuilder.js';
-import {User} from '../types.js';
-
-type RandomUserResponse = {
-	results: {
-		picture: {thumbnail: string};
-		name: {first: string; last: string};
-		location: {city: string; country: string};
-		nat: string;
-	}[];
-};
+import {RandomUserResponse, User} from '../types/user.js';
 
 export async function getUsersInfo({userCount = 5, nationality}: {userCount?: number; nationality?: string}): Promise<User[]> {
 	const requestUrl = buildUrl(API_RANDOMUSER_URL, {

@@ -1,5 +1,5 @@
 import {updateFieldIfChanged} from '../helpers/dom.js';
-import {User} from '../types.js';
+import {User} from '../types/user.js';
 
 export function updateWeatherFieldsOnCards(users: User[]): void {
 	const cards = document.querySelectorAll('.card');

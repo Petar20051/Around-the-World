@@ -1,6 +1,6 @@
-const loader: HTMLElement | null = document.getElementById('loader-container');
-const refreshBtn: HTMLButtonElement | null = document.querySelector('refresh-btn');
-const newUserBtn: HTMLButtonElement | null = document.querySelector('new-users-btn');
+const loader: HTMLElement | null = document.querySelector('#loader-container');
+const refreshBtn: HTMLButtonElement | null = document.querySelector('#refresh-btn');
+const newUserBtn: HTMLButtonElement | null = document.querySelector('#new-users-btn');
 const cardsContainer: HTMLButtonElement | null = document.querySelector('.card-list');
 
 export function setLoadingState(isLoading: boolean): void {

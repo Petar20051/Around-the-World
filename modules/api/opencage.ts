@@ -1,18 +1,9 @@
 import {API_OPENCAGE_URL, API_KEY_OPENCAGE} from '../constants.js';
 import {fetchJSON} from '../helpers/fetch.js';
 import {buildUrl} from '../helpers/queryBuilder.js';
-import {Coordinates} from '../types.js';
+import {OpenCageResponse, Coordinates} from '../types/coordinates.js';
 
-type OpenCageResponse = {
-	results: {
-		geometry: {lat: number; lng: number};
-	}[];
-};
-
-export async function fetchCoordinatesByLocation(
-	city: string,
-	country: string
-): Promise<Coordinates> {
+export async function fetchCoordinatesByLocation(city: string, country: string): Promise<Coordinates> {
 	const query: string = `${city}, ${country}`;
 	const requestUrl: string = buildUrl(API_OPENCAGE_URL, {
 		key: API_KEY_OPENCAGE,
