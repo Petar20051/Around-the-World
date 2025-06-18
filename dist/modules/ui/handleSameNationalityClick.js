@@ -1,5 +1,5 @@
 import { getUsersInfo } from '../api/randomuser.js';
-import { enrichUserWithWeather } from '../workflows/workflowHelper.js';
+import { enrichUserWeather } from '../workflows/enrichUserWeather.js';
 import { renderUserCards } from '../display/renderCards.js';
 import { USERS_CACHED_KEY } from '../constants.js';
 import { saveToLocalStorage } from '../helpers/localStorage.js';
@@ -17,7 +17,7 @@ export async function handleSameNationalityClick(user, users) {
         userCount: indexesToReplace.length,
         nationality: targetNationality,
     });
-    const enrichedNewUsers = await Promise.all(newUsers.map(enrichUserWithWeather));
+    const enrichedNewUsers = await Promise.all(newUsers.map((u) => enrichUserWeather(u, true)));
     indexesToReplace.forEach((value, index) => {
         users[value] = enrichedNewUsers[index];
     });
