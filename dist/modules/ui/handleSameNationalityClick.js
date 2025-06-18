@@ -17,7 +17,7 @@ export async function handleSameNationalityClick({ user, users }) {
         userCount: indexesToReplace.length,
         nationality: targetNationality,
     });
-    const enrichedNewUsers = await Promise.all(newUsers.map((u) => enrichUserWeather({ user: u, alwaysFetchCoordinates: true })));
+    const enrichedNewUsers = await Promise.all(newUsers.map((u) => enrichUserWeather(u)));
     indexesToReplace.forEach((value, index) => {
         users[value] = enrichedNewUsers[index];
     });

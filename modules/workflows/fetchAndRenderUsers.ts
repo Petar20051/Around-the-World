@@ -8,7 +8,7 @@ import {enrichUserWeather} from './enrichUserWeather.js';
 export async function fetchAndRenderUsers(): Promise<void> {
 	try {
 		const users = await getUsersInfo({});
-		const enrichedUsers = await Promise.all(users.map((u) => enrichUserWeather({user: u, alwaysFetchCoordinates: true})));
+		const enrichedUsers = await Promise.all(users.map((user) => enrichUserWeather(user)));
 		saveToLocalStorage({key: USERS_CACHED_KEY, value: enrichedUsers});
 		renderUserCards(enrichedUsers);
 	} catch (error) {

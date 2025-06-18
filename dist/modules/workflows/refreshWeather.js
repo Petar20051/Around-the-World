@@ -5,21 +5,18 @@ import { setErrorState } from '../ui/error.js';
 import { clearUserCards } from '../display/clearUserCards.js';
 import { enrichUserWeather } from './enrichUserWeather.js';
 export async function refreshAllUsersWeather() {
-    const currentUsers = loadFromLocalStorage(USERS_CACHED_KEY);
-    if (!currentUsers) {
+    const users = loadFromLocalStorage(USERS_CACHED_KEY);
+    if (!users) {
         clearUserCards();
         setErrorState('No users available for weather update');
         return;
     }
-    let updatedUsers = [];
     try {
-        updatedUsers = await Promise.all(currentUsers.map((u) => enrichUserWeather({ user: u, alwaysFetchCoordinates: false })));
-        updateWeatherFieldsOnCards(updatedUsers);
+        const enrichedUsers = await Promise.all(users.map(enrichUserWeather));
+        updateWeatherFieldsOnCards(enrichedUsers);
+        saveToLocalStorage({ key: USERS_CACHED_KEY, value: enrichedUsers });
     }
-    catch (err) {
-        console.error('Error refreshing weather data:', err);
-    }
-    finally {
-        saveToLocalStorage({ key: USERS_CACHED_KEY, value: updatedUsers });
+    catch (error) {
+        console.error('Error refreshing weather data:', error);
     }
 }

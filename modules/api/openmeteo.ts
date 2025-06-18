@@ -18,15 +18,13 @@ export async function fetchCurrentWeatherStats({latitude, longitude}: {latitude:
 	const fetchWeather = async (): Promise<Weather> => {
 		const data = await fetchJSON<OpenMeteoResponse>({
 			url: requestUrl,
-			errorMsg: 'Open-Meteo API',
+			errorMsg: 'Open-Meteo API fetch error',
 		});
 
-		const weatherStats = data.current;
-
 		return {
-			temperature: weatherStats.temperature_2m,
-			humidity: weatherStats.relative_humidity_2m,
-			condition: getWeatherDescription(weatherStats.weather_code),
+			temperature: data.current.temperature_2m,
+			humidity: data.current.relative_humidity_2m,
+			condition: getWeatherDescription(data.current.weather_code),
 		};
 	};
 

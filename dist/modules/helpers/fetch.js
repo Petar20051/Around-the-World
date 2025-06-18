@@ -1,18 +1,7 @@
 export async function fetchJSON({ url, errorMsg = 'API fetch error' }) {
-    try {
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error(`${errorMsg}: ${response.status}`);
-        }
-        return await response.json();
+    const response = await fetch(url);
+    if (!response.ok) {
+        throw new Error(`${errorMsg}: ${response.status}`);
     }
-    catch (error) {
-        if (error instanceof Error) {
-            console.error(errorMsg, error.message);
-        }
-        else {
-            console.error(errorMsg, error);
-        }
-        throw error;
-    }
+    return await response.json();
 }
