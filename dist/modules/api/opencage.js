@@ -1,7 +1,7 @@
 import { API_OPENCAGE_URL, API_KEY_OPENCAGE } from '../constants.js';
 import { fetchJSON } from '../helpers/fetch.js';
 import { buildUrl } from '../helpers/queryBuilder.js';
-export async function fetchCoordinatesByLocation({ city, country, }) {
+export async function fetchCoordinatesByLocation({ city, country }) {
     const query = `${city}, ${country}`;
     const requestUrl = buildUrl({
         baseUrl: API_OPENCAGE_URL,

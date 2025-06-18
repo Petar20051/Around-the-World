@@ -3,7 +3,7 @@ import { withRetry } from '../helpers/retry.js';
 import { getWeatherDescription } from '../helpers/weatherCodes.js';
 import { API_OPENMETEO_URL, OPENMETEO_QUERY } from '../constants.js';
 import { buildUrl } from '../helpers/queryBuilder.js';
-export async function fetchCurrentWeatherStats({ latitude, longitude, retries = 2, }) {
+export async function fetchCurrentWeatherStats({ latitude, longitude }) {
     const requestUrl = buildUrl({
         baseUrl: API_OPENMETEO_URL,
         queryParams: {
@@ -24,5 +24,5 @@ export async function fetchCurrentWeatherStats({ latitude, longitude, retries = 
             condition: getWeatherDescription(weatherStats.weather_code),
         };
     };
-    return withRetry({ fn: fetchWeather, retries: retries - 1 });
+    return withRetry({ fn: fetchWeather });
 }

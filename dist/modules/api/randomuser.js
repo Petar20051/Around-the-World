@@ -1,7 +1,7 @@
 import { API_RANDOMUSER_URL } from '../constants.js';
 import { fetchJSON } from '../helpers/fetch.js';
 import { buildUrl } from '../helpers/queryBuilder.js';
-export async function getUsersInfo({ userCount = 5, nationality, }) {
+export async function getUsersInfo({ userCount = 5, nationality }) {
     const requestUrl = buildUrl({
         baseUrl: API_RANDOMUSER_URL,
         queryParams: {

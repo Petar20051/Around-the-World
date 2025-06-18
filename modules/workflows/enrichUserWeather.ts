@@ -2,16 +2,15 @@ import {fetchCoordinatesByLocation} from '../api/opencage.js';
 import {fetchCurrentWeatherStats} from '../api/openmeteo.js';
 import {User} from '../types/user.js';
 
-export async function getCoordinatesIfNeeded({user, alwaysFetch}: {user: User; alwaysFetch: boolean}): Promise<User> {
+export async function getCoordinatesIfNeeded(user: User): Promise<User> {
 	const updatedUser = {...user};
 
-	if (alwaysFetch || !user.coordinates) {
+	if (!user.coordinates) {
 		try {
 			const coords = await fetchCoordinatesByLocation({city: user.city, country: user.country});
 			updatedUser.coordinates = coords;
 		} catch (error) {
 			console.warn(`Failed to fetch coordinates for ${user.fullName}:`, error);
-			if (alwaysFetch) return updatedUser;
 		}
 	}
 
@@ -41,7 +40,7 @@ export async function enrichUserWeather({
 	user: User;
 	alwaysFetchCoordinates?: boolean;
 }): Promise<User> {
-	let updatedUser = await getCoordinatesIfNeeded({user, alwaysFetch: alwaysFetchCoordinates});
+	let updatedUser = await getCoordinatesIfNeeded(user);
 	updatedUser = await getWeatherIfPossible(updatedUser);
 	return updatedUser;
 }
