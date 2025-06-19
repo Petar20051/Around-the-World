@@ -19,7 +19,11 @@ export async function fetchCurrentWeatherStats({ latitude, longitude }) {
             url: requestUrl,
             errorMsg: 'Open-Meteo API fetch error',
         });
-        const parsedData = parseWithSchema({ schema: OpenMeteoResponseSchema, data: data, errorMsg: 'Invalid OpenMeteo API response' });
+        const parsedData = parseWithSchema({
+            schema: OpenMeteoResponseSchema,
+            data: data,
+            errorMsg: 'Invalid OpenMeteo API response',
+        });
         return {
             condition: getWeatherDescription(parsedData.current.weather_code),
             humidity: parsedData.current.relative_humidity_2m,

@@ -24,7 +24,11 @@ export async function fetchCoordinatesByLocation({city, country}: fetchCoordinat
 		errorMsg: 'OpenCage API fetch error:',
 	});
 
-	const parsedData = parseWithSchema({schema: OpenCageResponseSchema, data: data, errorMsg: 'Invalid OpenCage API response'});
+	const parsedData = parseWithSchema<OpenCageResponse>({
+		schema: OpenCageResponseSchema,
+		data: data,
+		errorMsg: 'Invalid OpenCage API response',
+	});
 
 	return {
 		lat: parsedData.results[0].geometry.lat,
