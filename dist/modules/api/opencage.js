@@ -1,3 +1,4 @@
+import { OpenCageResponseSchema } from '../../validation/openCageSchema.js';
 import { API_OPENCAGE_URL, API_KEY_OPENCAGE } from '../constants.js';
 import { fetchJSON } from '../helpers/fetch.js';
 import { buildUrl } from '../helpers/queryBuilder.js';
@@ -16,12 +17,12 @@ export async function fetchCoordinatesByLocation({ city, country }) {
         url: requestUrl,
         errorMsg: 'OpenCage API fetch error:',
     });
-    const geometry = data.results[0]?.geometry;
-    if (!geometry) {
-        throw new Error(`No coordinates found for ${query}`);
+    const parsed = OpenCageResponseSchema.safeParse(data);
+    if (!parsed.success || !parsed.data.results[0]) {
+        throw new Error('Invalid OpenCage API response');
     }
     return {
-        lat: geometry.lat,
-        lng: geometry.lng,
+        lat: parsed.data.results[0].geometry.lat,
+        lng: parsed.data.results[0].geometry.lng,
     };
 }

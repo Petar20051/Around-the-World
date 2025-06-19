@@ -1,4 +1,6 @@
-export function createElement({type, className, text}: {type: string; className?: string; text?: string}): HTMLElement {
+import {createElementParams, updateFieldParams} from '../types/paramsTypes';
+
+export function createElement({type, className, text}: createElementParams): HTMLElement {
 	const el = document.createElement(type);
 	if (className) {
 		el.classList.add(className);
@@ -9,7 +11,7 @@ export function createElement({type, className, text}: {type: string; className?
 	return el;
 }
 
-export function updateFieldIfChanged({card, selector, newValue}: {card: Element; selector: string; newValue: string}): void {
+export function updateFieldIfChanged({card, selector, newValue}: updateFieldParams): void {
 	const el = card.querySelector<HTMLElement>(selector);
 	if (el && el.textContent !== newValue) {
 		el.textContent = newValue;

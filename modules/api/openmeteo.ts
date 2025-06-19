@@ -3,9 +3,11 @@ import {withRetry} from '../helpers/retry.js';
 import {getWeatherDescription} from '../helpers/weatherCodes.js';
 import {API_OPENMETEO_URL, OPENMETEO_QUERY} from '../constants.js';
 import {buildUrl} from '../helpers/queryBuilder.js';
-import {OpenMeteoResponse, Weather} from '../types/weather.js';
+import {Weather} from '../types/weather.js';
+import {fetchCurrentWeatherStatsParams} from '../types/paramsTypes.js';
+import {OpenMeteoResponse, OpenMeteoResponseSchema} from '../../validation/openMeteoSchema.js';
 
-export async function fetchCurrentWeatherStats({latitude, longitude}: {latitude: number; longitude: number}): Promise<Weather> {
+export async function fetchCurrentWeatherStats({latitude, longitude}: fetchCurrentWeatherStatsParams): Promise<Weather> {
 	const requestUrl = buildUrl({
 		baseUrl: API_OPENMETEO_URL,
 		queryParams: {
@@ -21,12 +23,18 @@ export async function fetchCurrentWeatherStats({latitude, longitude}: {latitude:
 			errorMsg: 'Open-Meteo API fetch error',
 		});
 
+		const parsed = OpenMeteoResponseSchema.safeParse(data);
+
+		if (!parsed.success) {
+			throw new Error('Invalid OpenMeteo API response');
+		}
+
 		return {
-			temperature: data.current.temperature_2m,
-			humidity: data.current.relative_humidity_2m,
 			condition: getWeatherDescription(data.current.weather_code),
+			humidity: data.current.relative_humidity_2m,
+			temperature: data.current.temperature_2m,
 		};
 	};
 
-	return withRetry({fn: fetchWeather});
+	return withRetry({fnToRetry: fetchWeather});
 }

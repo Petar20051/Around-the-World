@@ -1,9 +1,11 @@
+import {OpenCageResponse, OpenCageResponseSchema} from '../../validation/openCageSchema.js';
 import {API_OPENCAGE_URL, API_KEY_OPENCAGE} from '../constants.js';
 import {fetchJSON} from '../helpers/fetch.js';
 import {buildUrl} from '../helpers/queryBuilder.js';
-import {OpenCageResponse, Coordinates} from '../types/coordinates.js';
+import {Coordinates} from '../types/coordinates.js';
+import {fetchCoordinatesByLocationParams} from '../types/paramsTypes.js';
 
-export async function fetchCoordinatesByLocation({city, country}: {city: string; country: string}): Promise<Coordinates> {
+export async function fetchCoordinatesByLocation({city, country}: fetchCoordinatesByLocationParams): Promise<Coordinates> {
 	const query = `${city}, ${country}`;
 
 	const requestUrl = buildUrl({
@@ -21,14 +23,14 @@ export async function fetchCoordinatesByLocation({city, country}: {city: string;
 		errorMsg: 'OpenCage API fetch error:',
 	});
 
-	const geometry = data.results[0]?.geometry;
+	const parsed = OpenCageResponseSchema.safeParse(data);
 
-	if (!geometry) {
-		throw new Error(`No coordinates found for ${query}`);
+	if (!parsed.success || !parsed.data.results[0]) {
+		throw new Error('Invalid OpenCage API response');
 	}
 
 	return {
-		lat: geometry.lat,
-		lng: geometry.lng,
+		lat: parsed.data.results[0].geometry.lat,
+		lng: parsed.data.results[0].geometry.lng,
 	};
 }

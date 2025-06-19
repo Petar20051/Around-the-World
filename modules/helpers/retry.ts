@@ -1,19 +1,16 @@
+import {withRetryParams} from '../types/paramsTypes';
+
 export async function withRetry<T>({
-	fn,
+	fnToRetry,
 	retries = 2,
 	delayMs = 1000,
 	errorMessage = 'Function execution failed',
-}: {
-	fn: () => Promise<T>;
-	retries?: number;
-	delayMs?: number;
-	errorMessage?: string;
-}): Promise<T> {
+}: withRetryParams<T>): Promise<T> {
 	try {
-		return await fn();
+		return await fnToRetry();
 	} catch (error) {
 		if (retries > 0) {
-			return withRetry({fn, retries: retries - 1, delayMs, errorMessage});
+			return withRetry({fnToRetry, retries: retries - 1, delayMs, errorMessage});
 		}
 		throw new Error(`${errorMessage}: maximum retries exceeded`);
 	}
