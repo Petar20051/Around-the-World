@@ -1,10 +1,12 @@
 //@ts-ignore
 import z from 'https://esm.sh/zod';
+export const GeometrySchema = z.object({
+    lat: z.number(),
+    lng: z.number(),
+});
+export const OpenCageResultSchema = z.object({
+    geometry: GeometrySchema,
+});
 export const OpenCageResponseSchema = z.object({
-    results: z.array(z.object({
-        geometry: z.object({
-            lat: z.number(),
-            lng: z.number(),
-        }),
-    })),
+    results: z.array(OpenCageResultSchema),
 });

@@ -5,16 +5,6 @@ import {buildUrl} from '../helpers/queryBuilder.js';
 import {getUsersInfoParams} from '../types/paramsTypes.js';
 import {User} from '../types/user.js';
 
-function mapRandomUserToUser(randomUser: RandomUser): User {
-	return {
-		fullName: `${randomUser.name.first} ${randomUser.name.last}`,
-		city: randomUser.location.city,
-		country: randomUser.location.country,
-		nationality: randomUser.nat,
-		picture: randomUser.picture.thumbnail,
-	};
-}
-
 export async function getUsersInfo({userCount = DEFAULT_USER_COUNT, nationality}: getUsersInfoParams): Promise<User[]> {
 	const requestUrl = buildUrl({
 		baseUrl: API_RANDOMUSER_URL,
@@ -35,4 +25,14 @@ export async function getUsersInfo({userCount = DEFAULT_USER_COUNT, nationality}
 	}
 
 	return parsed.data.results.map(mapRandomUserToUser);
+}
+
+function mapRandomUserToUser(randomUser: RandomUser): User {
+	return {
+		fullName: `${randomUser.name.first} ${randomUser.name.last}`,
+		city: randomUser.location.city,
+		country: randomUser.location.country,
+		nationality: randomUser.nat,
+		picture: randomUser.picture.thumbnail,
+	};
 }
