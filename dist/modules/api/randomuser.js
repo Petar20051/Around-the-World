@@ -2,6 +2,7 @@ import { RandomUserResponseSchema } from '../schemas/randomUser.js';
 import { API_RANDOMUSER_URL, DEFAULT_USER_COUNT } from '../constants.js';
 import { fetchJSON } from '../helpers/fetch.js';
 import { buildUrl } from '../helpers/queryBuilder.js';
+import { parseWithSchema } from '../helpers/zodUtils.js';
 export async function getUsersInfo({ userCount = DEFAULT_USER_COUNT, nationality }) {
     const requestUrl = buildUrl({
         baseUrl: API_RANDOMUSER_URL,
@@ -14,11 +15,8 @@ export async function getUsersInfo({ userCount = DEFAULT_USER_COUNT, nationality
         url: requestUrl,
         errorMsg: 'RandomUser API fetch error:',
     });
-    const parsed = RandomUserResponseSchema.safeParse(data);
-    if (!parsed.success) {
-        throw new Error('Invalid RandomUser API response');
-    }
-    return parsed.data.results.map(mapRandomUserToUser);
+    const parsedData = parseWithSchema({ schema: RandomUserResponseSchema, data: data, errorMsg: 'Invalid RandomUser API response' });
+    return parsedData.results.map(mapRandomUserToUser);
 }
 function mapRandomUserToUser(randomUser) {
     return {

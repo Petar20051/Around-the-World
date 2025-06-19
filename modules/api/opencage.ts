@@ -4,6 +4,7 @@ import {fetchJSON} from '../helpers/fetch.js';
 import {buildUrl} from '../helpers/queryBuilder.js';
 import {Coordinates} from '../types/coordinates.js';
 import {fetchCoordinatesByLocationParams} from '../types/params.js';
+import {parseWithSchema} from '../helpers/zodUtils.js';
 
 export async function fetchCoordinatesByLocation({city, country}: fetchCoordinatesByLocationParams): Promise<Coordinates> {
 	const query = `${city}, ${country}`;
@@ -23,14 +24,10 @@ export async function fetchCoordinatesByLocation({city, country}: fetchCoordinat
 		errorMsg: 'OpenCage API fetch error:',
 	});
 
-	const parsed = OpenCageResponseSchema.safeParse(data);
-
-	if (!parsed.success || !parsed.data.results[0]) {
-		throw new Error('Invalid OpenCage API response');
-	}
+	const parsedData = parseWithSchema({schema: OpenCageResponseSchema, data: data, errorMsg: 'Invalid OpenCage API response'});
 
 	return {
-		lat: parsed.data.results[0].geometry.lat,
-		lng: parsed.data.results[0].geometry.lng,
+		lat: parsedData.results[0].geometry.lat,
+		lng: parsedData.results[0].geometry.lng,
 	};
 }

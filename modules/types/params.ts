@@ -1,3 +1,4 @@
+import {ZodSchema} from 'zod';
 import {User} from './user';
 
 export type createElementParams = {
@@ -51,4 +52,10 @@ export type buildUrlParams = {
 export type handleSameNationalityClickParams = {
 	user: User;
 	users: User[];
+};
+
+export type ParseWithSchemaParams<T> = {
+	schema: ZodSchema<T>;
+	data: unknown;
+	errorMsg?: string;
 };

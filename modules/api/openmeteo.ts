@@ -6,6 +6,7 @@ import {buildUrl} from '../helpers/queryBuilder.js';
 import {Weather} from '../types/weather.js';
 import {fetchCurrentWeatherStatsParams} from '../types/params.js';
 import {OpenMeteoResponse, OpenMeteoResponseSchema} from '../schemas/openMeteo.js';
+import {parseWithSchema} from '../helpers/zodUtils.js';
 
 export async function fetchCurrentWeatherStats({latitude, longitude}: fetchCurrentWeatherStatsParams): Promise<Weather> {
 	const requestUrl = buildUrl({
@@ -23,16 +24,12 @@ export async function fetchCurrentWeatherStats({latitude, longitude}: fetchCurre
 			errorMsg: 'Open-Meteo API fetch error',
 		});
 
-		const parsed = OpenMeteoResponseSchema.safeParse(data);
-
-		if (!parsed.success) {
-			throw new Error('Invalid OpenMeteo API response');
-		}
+		const parsedData = parseWithSchema({schema: OpenMeteoResponseSchema, data: data, errorMsg: 'Invalid OpenMeteo API response'});
 
 		return {
-			condition: getWeatherDescription(data.current.weather_code),
-			humidity: data.current.relative_humidity_2m,
-			temperature: data.current.temperature_2m,
+			condition: getWeatherDescription(parsedData.current.weather_code),
+			humidity: parsedData.current.relative_humidity_2m,
+			temperature: parsedData.current.temperature_2m,
 		};
 	};
 
