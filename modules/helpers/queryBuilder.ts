@@ -1,4 +1,4 @@
-import {buildUrlParams} from '../types/paramsTypes';
+import {buildUrlParams} from '../types/params';
 
 export function buildUrl({baseUrl, queryParams = {}}: buildUrlParams): string {
 	const url = new URL(baseUrl);

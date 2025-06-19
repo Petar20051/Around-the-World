@@ -1,4 +1,4 @@
-import { RandomUserResponseSchema } from '../../validation/randomUserSchema.js';
+import { RandomUserResponseSchema } from '../schemas/randomUser.js';
 import { API_RANDOMUSER_URL, DEFAULT_USER_COUNT } from '../constants.js';
 import { fetchJSON } from '../helpers/fetch.js';
 import { buildUrl } from '../helpers/queryBuilder.js';

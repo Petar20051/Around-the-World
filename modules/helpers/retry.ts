@@ -1,4 +1,4 @@
-import {withRetryParams} from '../types/paramsTypes';
+import {withRetryParams} from '../types/params';
 
 export async function withRetry<T>({
 	fnToRetry,

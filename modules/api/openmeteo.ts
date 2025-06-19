@@ -4,8 +4,8 @@ import {getWeatherDescription} from '../helpers/weatherCodes.js';
 import {API_OPENMETEO_URL, OPENMETEO_QUERY} from '../constants.js';
 import {buildUrl} from '../helpers/queryBuilder.js';
 import {Weather} from '../types/weather.js';
-import {fetchCurrentWeatherStatsParams} from '../types/paramsTypes.js';
-import {OpenMeteoResponse, OpenMeteoResponseSchema} from '../../validation/openMeteoSchema.js';
+import {fetchCurrentWeatherStatsParams} from '../types/params.js';
+import {OpenMeteoResponse, OpenMeteoResponseSchema} from '../schemas/openMeteo.js';
 
 export async function fetchCurrentWeatherStats({latitude, longitude}: fetchCurrentWeatherStatsParams): Promise<Weather> {
 	const requestUrl = buildUrl({

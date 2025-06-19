@@ -1,4 +1,4 @@
-import {saveToLocalStorageParams} from '../types/paramsTypes';
+import {saveToLocalStorageParams} from '../types/params';
 
 export function saveToLocalStorage({key, value}: saveToLocalStorageParams): void {
 	localStorage.setItem(key, JSON.stringify(value));

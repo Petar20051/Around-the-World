@@ -3,7 +3,7 @@ import { withRetry } from '../helpers/retry.js';
 import { getWeatherDescription } from '../helpers/weatherCodes.js';
 import { API_OPENMETEO_URL, OPENMETEO_QUERY } from '../constants.js';
 import { buildUrl } from '../helpers/queryBuilder.js';
-import { OpenMeteoResponseSchema } from '../../validation/openMeteoSchema.js';
+import { OpenMeteoResponseSchema } from '../schemas/openMeteo.js';
 export async function fetchCurrentWeatherStats({ latitude, longitude }) {
     const requestUrl = buildUrl({
         baseUrl: API_OPENMETEO_URL,

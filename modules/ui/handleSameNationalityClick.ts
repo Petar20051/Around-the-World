@@ -3,9 +3,9 @@ import {enrichUserWeather} from '../workflows/enrichUserWeather.js';
 import {renderUserCards} from '../display/renderCards.js';
 import {USERS_CACHED_KEY} from '../constants.js';
 import {saveToLocalStorage} from '../helpers/localStorage.js';
-import {User} from '../types/user.js';
+import {handleSameNationalityClickParams} from '../types/params.js';
 
-export async function handleSameNationalityClick({user, users}: {user: User; users: User[]}): Promise<void> {
+export async function handleSameNationalityClick({user, users}: handleSameNationalityClickParams): Promise<void> {
 	const targetNationality = user.nationality;
 
 	const indexesToReplace: number[] = [];

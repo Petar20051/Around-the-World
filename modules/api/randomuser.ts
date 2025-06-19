@@ -1,8 +1,8 @@
-import {RandomUserResponse, RandomUserResponseSchema, RandomUser} from '../../validation/randomUserSchema.js';
+import {RandomUserResponse, RandomUserResponseSchema, RandomUser} from '../schemas/randomUser.js';
 import {API_RANDOMUSER_URL, DEFAULT_USER_COUNT} from '../constants.js';
 import {fetchJSON} from '../helpers/fetch.js';
 import {buildUrl} from '../helpers/queryBuilder.js';
-import {getUsersInfoParams} from '../types/paramsTypes.js';
+import {getUsersInfoParams} from '../types/params.js';
 import {User} from '../types/user.js';
 
 export async function getUsersInfo({userCount = DEFAULT_USER_COUNT, nationality}: getUsersInfoParams): Promise<User[]> {

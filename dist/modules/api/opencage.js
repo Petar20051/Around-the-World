@@ -1,4 +1,4 @@
-import { OpenCageResponseSchema } from '../../validation/openCageSchema.js';
+import { OpenCageResponseSchema } from '../schemas/openCage.js';
 import { API_OPENCAGE_URL, API_KEY_OPENCAGE } from '../constants.js';
 import { fetchJSON } from '../helpers/fetch.js';
 import { buildUrl } from '../helpers/queryBuilder.js';

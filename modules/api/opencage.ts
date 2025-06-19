@@ -1,9 +1,9 @@
-import {OpenCageResponse, OpenCageResponseSchema} from '../../validation/openCageSchema.js';
+import {OpenCageResponse, OpenCageResponseSchema} from '../schemas/openCage.js';
 import {API_OPENCAGE_URL, API_KEY_OPENCAGE} from '../constants.js';
 import {fetchJSON} from '../helpers/fetch.js';
 import {buildUrl} from '../helpers/queryBuilder.js';
 import {Coordinates} from '../types/coordinates.js';
-import {fetchCoordinatesByLocationParams} from '../types/paramsTypes.js';
+import {fetchCoordinatesByLocationParams} from '../types/params.js';
 
 export async function fetchCoordinatesByLocation({city, country}: fetchCoordinatesByLocationParams): Promise<Coordinates> {
 	const query = `${city}, ${country}`;

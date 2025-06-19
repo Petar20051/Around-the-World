@@ -1,4 +1,4 @@
-import {createElementParams, updateFieldParams} from '../types/paramsTypes';
+import {createElementParams, updateFieldParams} from '../types/params';
 
 export function createElement({type, className, text}: createElementParams): HTMLElement {
 	const el = document.createElement(type);
