@@ -1,5 +1,4 @@
-//@ts-ignore
-import z from 'https://esm.sh/zod';
+import z from 'zod';
 
 export const PictureSchema = z.object({
 	thumbnail: z.string().url(),

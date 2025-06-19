@@ -1,5 +1,4 @@
-//@ts-ignore
-import z from 'https://esm.sh/zod';
+import z from 'zod';
 export const GeometrySchema = z.object({
     lat: z.number(),
     lng: z.number(),

@@ -1,5 +1,4 @@
-//@ts-ignore
-import z from 'https://esm.sh/zod';
+import z from 'zod';
 export const CurrentWeatherSchema = z.object({
     temperature_2m: z.number(),
     relative_humidity_2m: z.number(),
