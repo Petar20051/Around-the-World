@@ -1,11 +1,12 @@
-import {DEFAULT_RETRIES_COUNT, DEFAULT_RETRY_DELAY_MS, DEFAULT_RETRY_FAILED_MSG} from '../constants';
+import {DEFAULT_RETRIES_COUNT, DEFAULT_RETRY_DELAY_MS} from '../constants/defaults';
+import {ERROR_MESSAGES} from '../constants/errorMessages';
 import {withRetryParams} from '../types/params';
 
 export async function withRetry<T>({
 	fnToRetry,
 	retries = DEFAULT_RETRIES_COUNT,
 	delayMs = DEFAULT_RETRY_DELAY_MS,
-	errorMessage = DEFAULT_RETRY_FAILED_MSG,
+	errorMessage = ERROR_MESSAGES.RETRY_FAILED,
 }: withRetryParams<T>): Promise<T> {
 	try {
 		return await fnToRetry();

@@ -1,10 +1,11 @@
 import {RandomUserResponse, RandomUserResponseSchema, RandomUser} from '../schemas/randomUser.js';
-import {API_RANDOMUSER_URL, DEFAULT_USER_COUNT} from '../constants.js';
 import {fetchJSON} from '../helpers/fetch.js';
 import {buildUrl} from '../helpers/queryBuilder.js';
 import {getUsersInfoParams} from '../types/params.js';
 import {User} from '../types/user.js';
 import {parseWithSchema} from '../helpers/zodUtils.js';
+import {DEFAULT_USER_COUNT} from '../constants/defaults.js';
+import {API_RANDOMUSER_URL} from '../constants/api.js';
 
 export async function getUsersInfo({userCount = DEFAULT_USER_COUNT, nationality}: getUsersInfoParams): Promise<User[]> {
 	const requestUrl = buildUrl({

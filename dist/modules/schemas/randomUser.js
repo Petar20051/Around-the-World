@@ -1,5 +1,5 @@
 import z from 'zod';
-import { ZOD_MESSAGES } from '../constants';
+import { ZOD_MESSAGES } from '../constants/zodMessages';
 const PictureSchema = z.object({
     thumbnail: z.string().url({ message: ZOD_MESSAGES.thumbnailUrl }),
 });

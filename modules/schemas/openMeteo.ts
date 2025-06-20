@@ -1,5 +1,5 @@
 import z from 'zod';
-import {ZOD_MESSAGES} from '../constants';
+import {ZOD_MESSAGES} from '../constants/zodMessages';
 
 const CurrentWeatherSchema = z.object({
 	temperature_2m: z.number().min(-20, {message: ZOD_MESSAGES.temperatureMin}).max(40, {message: ZOD_MESSAGES.temperatureMax}),

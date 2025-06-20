@@ -1,8 +1,8 @@
 import { getUsersInfo } from '../api/randomuser.js';
 import { enrichUserWeather } from '../workflows/enrichUserWeather.js';
 import { renderUserCards } from '../display/renderCards.js';
-import { USERS_CACHED_KEY } from '../constants.js';
 import { saveToLocalStorage } from '../helpers/localStorage.js';
+import { USERS_CACHED_KEY } from '../constants/defaults.js';
 export async function handleSameNationalityClick({ user, users }) {
     const targetNationality = user.nationality;
     const indexesToReplace = [];

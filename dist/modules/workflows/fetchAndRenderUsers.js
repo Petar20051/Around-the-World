@@ -1,9 +1,10 @@
 import { renderUserCards } from '../display/renderCards.js';
 import { getUsersInfo } from '../api/randomuser.js';
 import { saveToLocalStorage } from '../helpers/localStorage.js';
-import { USERS_CACHED_KEY, WORKFLOW_ERROR_MSG } from '../constants.js';
 import { setErrorState } from '../ui/error.js';
 import { enrichUserWeather } from './enrichUserWeather.js';
+import { USERS_CACHED_KEY } from '../constants/defaults.js';
+import { ERROR_MESSAGES } from '../constants/errorMessages.js';
 export async function fetchAndRenderUsers() {
     try {
         const users = await getUsersInfo({});
@@ -12,7 +13,7 @@ export async function fetchAndRenderUsers() {
         renderUserCards(enrichedUsers);
     }
     catch (error) {
-        console.error(WORKFLOW_ERROR_MSG, error);
-        setErrorState(WORKFLOW_ERROR_MSG);
+        console.error(ERROR_MESSAGES.WORKFLOW_ERROR, error);
+        setErrorState(ERROR_MESSAGES.WORKFLOW_ERROR);
     }
 }

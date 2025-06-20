@@ -1,0 +1,20 @@
+export const ZOD_MESSAGES = {
+	thumbnailUrl: 'Thumbnail must be a valid URL.',
+	firstNameRequired: 'First name is required.',
+	lastNameRequired: 'Last name is required.',
+	cityRequired: 'City is required.',
+	countryRequired: 'Country is required.',
+	nationalityMin: 'Nationality must be at least 2 characters.',
+	atLeastOneUser: 'At least one user is required.',
+
+	temperatureMin: 'Temperature must be at least -20°C.',
+	temperatureMax: 'Temperature must be under 40°C.',
+	humidityMin: 'Humidity must be positive.',
+	humidityMax: 'Humidity must be 100% or less.',
+	weatherCodeInt: 'Weather code must be an integer.',
+
+	latitudeMin: 'Latitude must be >= -90',
+	latitudeMax: 'Latitude must be <= 90',
+	longitudeMin: 'Longitude must be >= -180',
+	longitudeMax: 'Longitude must be <= 180',
+};

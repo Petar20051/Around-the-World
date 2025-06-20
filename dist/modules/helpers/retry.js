@@ -1,5 +1,6 @@
-import { DEFAULT_RETRIES_COUNT, DEFAULT_RETRY_DELAY_MS, DEFAULT_RETRY_FAILED_MSG } from '../constants';
-export async function withRetry({ fnToRetry, retries = DEFAULT_RETRIES_COUNT, delayMs = DEFAULT_RETRY_DELAY_MS, errorMessage = DEFAULT_RETRY_FAILED_MSG, }) {
+import { DEFAULT_RETRIES_COUNT, DEFAULT_RETRY_DELAY_MS } from '../constants/defaults';
+import { ERROR_MESSAGES } from '../constants/errorMessages';
+export async function withRetry({ fnToRetry, retries = DEFAULT_RETRIES_COUNT, delayMs = DEFAULT_RETRY_DELAY_MS, errorMessage = ERROR_MESSAGES.RETRY_FAILED, }) {
     try {
         return await fnToRetry();
     }
