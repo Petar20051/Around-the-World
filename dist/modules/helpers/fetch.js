@@ -1,7 +1,8 @@
-export async function fetchJSON({ url, errorMsg = 'API fetch error' }) {
+import { DEFAULT_FETCH_ERROR_MSG } from '../constants';
+export async function fetchJSON({ url, context }) {
     const response = await fetch(url);
     if (!response.ok) {
-        throw new Error(`${errorMsg}: ${response.status}`);
+        throw new Error(`${context ? context + ' ' : ''}${DEFAULT_FETCH_ERROR_MSG} : ${response.status}`);
     }
     return await response.json();
 }

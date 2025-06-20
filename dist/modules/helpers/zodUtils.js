@@ -1,7 +1,9 @@
-export function parseWithSchema({ schema, data, errorMsg = 'Invalid API response' }) {
+import { DEFAULT_INVALID_DATA_MSG } from '../constants';
+export function parseWithSchema({ schema, data }) {
     const parsed = schema.safeParse(data);
     if (!parsed.success) {
-        throw new Error(errorMsg);
+        console.log(parsed.error.errors);
+        throw new Error(DEFAULT_INVALID_DATA_MSG);
     }
     return parsed.data;
 }

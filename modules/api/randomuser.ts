@@ -17,12 +17,11 @@ export async function getUsersInfo({userCount = DEFAULT_USER_COUNT, nationality}
 
 	const data = await fetchJSON<RandomUserResponse>({
 		url: requestUrl,
-		errorMsg: 'RandomUser API fetch error:',
+		context: 'RandomUser',
 	});
 	const parsedData = parseWithSchema<RandomUserResponse>({
 		schema: RandomUserResponseSchema,
 		data: data,
-		errorMsg: 'Invalid RandomUser API response',
 	});
 	return parsedData.results.map(mapRandomUserToUser);
 }

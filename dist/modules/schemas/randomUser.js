@@ -1,21 +1,22 @@
 import z from 'zod';
-export const PictureSchema = z.object({
-    thumbnail: z.string().url(),
+import { ZOD_MESSAGES } from '../constants';
+const PictureSchema = z.object({
+    thumbnail: z.string().url({ message: ZOD_MESSAGES.thumbnailUrl }),
 });
-export const NameSchema = z.object({
-    first: z.string(),
-    last: z.string(),
+const NameSchema = z.object({
+    first: z.string().min(1, { message: ZOD_MESSAGES.firstNameRequired }),
+    last: z.string().min(1, { message: ZOD_MESSAGES.lastNameRequired }),
 });
-export const LocationSchema = z.object({
-    city: z.string(),
-    country: z.string(),
+const LocationSchema = z.object({
+    city: z.string().min(1, { message: ZOD_MESSAGES.cityRequired }),
+    country: z.string().min(1, { message: ZOD_MESSAGES.countryRequired }),
 });
-export const RandomUserSchema = z.object({
+const RandomUserSchema = z.object({
     picture: PictureSchema,
     name: NameSchema,
     location: LocationSchema,
-    nat: z.string(),
+    nat: z.string().min(2, { message: ZOD_MESSAGES.nationalityMin }),
 });
 export const RandomUserResponseSchema = z.object({
-    results: z.array(RandomUserSchema),
+    results: z.array(RandomUserSchema).min(1, { message: ZOD_MESSAGES.atLeastOneUser }),
 });

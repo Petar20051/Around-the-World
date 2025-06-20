@@ -1,4 +1,5 @@
-export async function withRetry({ fnToRetry, retries = 2, delayMs = 1000, errorMessage = 'Function execution failed', }) {
+import { DEFAULT_RETRIES_COUNT, DEFAULT_RETRY_DELAY_MS, DEFAULT_RETRY_FAILED_MSG } from '../constants';
+export async function withRetry({ fnToRetry, retries = DEFAULT_RETRIES_COUNT, delayMs = DEFAULT_RETRY_DELAY_MS, errorMessage = DEFAULT_RETRY_FAILED_MSG, }) {
     try {
         return await fnToRetry();
     }

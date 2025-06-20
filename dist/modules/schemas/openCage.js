@@ -1,9 +1,10 @@
 import z from 'zod';
-export const GeometrySchema = z.object({
-    lat: z.number(),
-    lng: z.number(),
+import { ZOD_MESSAGES } from '../constants';
+const GeometrySchema = z.object({
+    lat: z.number().min(-90, { message: ZOD_MESSAGES.latitudeMin }).max(90, { message: ZOD_MESSAGES.latitudeMax }),
+    lng: z.number().min(-180, { message: ZOD_MESSAGES.longitudeMin }).max(180, { message: ZOD_MESSAGES.longitudeMax }),
 });
-export const OpenCageResultSchema = z.object({
+const OpenCageResultSchema = z.object({
     geometry: GeometrySchema,
 });
 export const OpenCageResponseSchema = z.object({

@@ -37,7 +37,7 @@ export type getUsersInfoParams = {
 
 export type fetchJSONParams = {
 	url: string;
-	errorMsg?: string;
+	context?: string;
 };
 
 export type saveToLocalStorageParams = {
@@ -57,5 +57,4 @@ export type handleSameNationalityClickParams = {
 export type ParseWithSchemaParams<T> = {
 	schema: ZodSchema<T>;
 	data: unknown;
-	errorMsg?: string;
 };

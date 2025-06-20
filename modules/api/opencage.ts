@@ -21,13 +21,12 @@ export async function fetchCoordinatesByLocation({city, country}: fetchCoordinat
 
 	const data = await fetchJSON<OpenCageResponse>({
 		url: requestUrl,
-		errorMsg: 'OpenCage API fetch error:',
+		context: 'OpenCage',
 	});
 
 	const parsedData = parseWithSchema<OpenCageResponse>({
 		schema: OpenCageResponseSchema,
 		data: data,
-		errorMsg: 'Invalid OpenCage API response',
 	});
 
 	return {

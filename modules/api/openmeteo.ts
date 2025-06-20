@@ -21,13 +21,12 @@ export async function fetchCurrentWeatherStats({latitude, longitude}: fetchCurre
 	const fetchWeather = async (): Promise<Weather> => {
 		const data = await fetchJSON<OpenMeteoResponse>({
 			url: requestUrl,
-			errorMsg: 'Open-Meteo API fetch error',
+			context: 'OpenMeteo',
 		});
 
 		const parsedData = parseWithSchema<OpenMeteoResponse>({
 			schema: OpenMeteoResponseSchema,
 			data: data,
-			errorMsg: 'Invalid OpenMeteo API response',
 		});
 
 		return {

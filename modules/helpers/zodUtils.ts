@@ -1,9 +1,11 @@
+import {DEFAULT_INVALID_DATA_MSG} from '../constants';
 import {ParseWithSchemaParams} from '../types/params';
 
-export function parseWithSchema<T>({schema, data, errorMsg = 'Invalid API response'}: ParseWithSchemaParams<T>): T {
+export function parseWithSchema<T>({schema, data}: ParseWithSchemaParams<T>): T {
 	const parsed = schema.safeParse(data);
 	if (!parsed.success) {
-		throw new Error(errorMsg);
+		console.log(parsed.error.errors);
+		throw new Error(DEFAULT_INVALID_DATA_MSG);
 	}
 	return parsed.data;
 }
